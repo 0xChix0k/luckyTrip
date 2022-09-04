@@ -4,7 +4,8 @@ $(document).ready(function () {
   });
 
   $('.mint_btn').click(function () {
-    checkBuyAmount();
+    connect();
+    mint();
   });
 
   $('.show_btn').click(function () {
