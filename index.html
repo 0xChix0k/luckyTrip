@@ -132,12 +132,12 @@
                                     <div class="swiper-slide">
                                         <img src="images/nft_04.png" />
                                     </div>
-                                    <div class="swiper-slide">
+                                    <!-- <div class="swiper-slide">
                                         <img src="images/nft_05.png" />
                                     </div>
                                     <div class="swiper-slide">
                                         <img src="images/nft_06.png" />
-                                    </div>
+                                    </div> -->
                                 </div>
 
                             </div>
@@ -183,27 +183,48 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <img src="images/about_us.png" alt="" style="margin: 0 auto;display: block;">
+                    <img src="images/about_us.png" class="about-img" alt="" style="margin: 0 auto;">
                 </div>
 
             </div>
         </div>
     </section>
+
+    <section class="lucky-man">
+        <img src="images/lucky-man.jpg" alt="">
+    </section>
+
     <section class="story" id="story">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class=" t-align-center">
-                        <p class="section-title m_20">Background Story</p>
+                        <p class="section-title m_20">項目資訊簡介</p>
                     </div>
-                    <div class="row">
+                    <div class="swiper storySwiper">
+                        <div class="swiper-wrapper">
+                            <div data-hash="slide1" class="swiper-slide">
+                                <img src="images/background_story_01.png" alt="">
+                            </div>
+                            <div data-hash="slide2" class="swiper-slide">
+                                <img src="images/background_story_02.png" alt="">
+                            </div>
+                            <div data-hash="slide3" class="swiper-slide">
+                                <img src="images/background_story_03.png" alt="">
+                            </div>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                    <!-- <div class="row">
                         <div class="col-md-4">
                             <img src="images/background_story_01.png" alt="">
                         </div>
-                        <div class="col-md-4 story-m">
+                        <div class="col-md-4">
                             <img src="images/background_story_02.png" alt="">
                         </div>
-                        <div class="col-md-4 story-m">
+                        <div class="col-md-4">
                             <img src="images/background_story_03.png" alt="">
                         </div>
                         <div class="col-md-9" style="margin: 20px auto;">
@@ -211,7 +232,7 @@
                                 背景故事
                             </p>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -234,7 +255,7 @@
 
     </section>
 
-    <section class="faq" id="faq">
+    <!-- <section class="faq" id="faq">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -266,7 +287,7 @@
             </div>
         </div>
 
-    </section>
+    </section> -->
     <footer style="color: #fff;background-color: black;">
         Copyright © <span style="color: #e99700;">Lucky Trip</span> Reserved
     </footer>
@@ -276,18 +297,30 @@
         var swiper = new Swiper(".mySwiper", {
 
             autoplay: {
-                delay: 800,
+                delay: 1000,
             },
             loop: true,
-            speed: 800,
-            effect: "flip",
-            fadeEffect: {
-                crossFade: true
-            },
-            observer: true,
-            observeParents: true,
+            speed: 500,
+            effect: "slide",
+            // fadeEffect: {
+            //     crossFade: true
+            // },
+            // observer: true,
+            // observeParents: true,
         });
-
+        var storySwiper = new Swiper(".storySwiper", {
+            spaceBetween: 30,
+            effect: "fade",
+            loop: true,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
         connect()
     </script>
 </body>

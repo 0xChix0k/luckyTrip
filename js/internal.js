@@ -34,8 +34,9 @@ $(document).ready(function () {
   });
 
   //SocialMedia
-  var twitterURL = 'https://twitter.com/tinyminer_yt';
-  var discordURL = 'https://discord.gg/redcatdao';
+  var twitterURL = 'https://twitter.com/luckytripl';
+  var discordURL = 'https://discord.gg/knhdweRUW4';
+  var instagramURL = 'https://www.instagram.com/luckytrip.io';
   var socialMediaSB = new StringBuilder();
   var result = document.querySelector('.socialMedia');
 
@@ -45,20 +46,28 @@ $(document).ready(function () {
     socialMediaSB.append('<span>Twitter</span>');
     socialMediaSB.append('</a>');
   }
-
   if (discordURL.length > 0) {
     socialMediaSB.append('<a href="' + discordURL + '" id="discord" target="_blank">');
     socialMediaSB.append('<span><i class="bx bxl-discord-alt" style="color:#ffffff;font-size:36px" ></i></span>');
     socialMediaSB.append('<span>Discord</span>');
     socialMediaSB.append('</a>');
   }
+  if (instagramURL.length > 0) {
+    socialMediaSB.append('<a href="' + instagramURL + '" id="ig" target="_blank">');
+    socialMediaSB.append('<span><i class="bx bxl-instagram-alt" style="color:#ffffff;font-size:36px"></i></span>');
+    socialMediaSB.append('<span>Instagram</span>');
+    socialMediaSB.append('</a>');
+  }
   result.innerHTML = socialMediaSB.toString();
 
   //Roadmap
-  var roadmap_titles = '3月|6月';
-  var roadmap_title = roadmap_titles.split('|');
-  var roadmap_contents = '沒事|有事';
-  var roadmap_content = roadmap_contents.split('|');
+  var roadmap_title = ['銷售50~5555張', '銷售1110張', '銷售2755張', '完售5555張'];
+  var roadmap_content = [
+    '週週抽[一般]住宿券2組(價值3000~5000)',
+    '週週抽[豪華]住宿券1組(價值10000~15000)',
+    '月抽[總統套房]住宿券1組(價值50000以上)',
+    '加碼抽以太幣數顆!',
+  ];
 
   var roadmapSB = new StringBuilder();
   var result = document.querySelector('.roadmapMenu');
@@ -77,49 +86,49 @@ $(document).ready(function () {
   result.innerHTML = roadmapSB.toString();
 
   //FAQ
-  var faq_titles = '1.開始時間';
-  var faq_title = faq_titles.split('|');
-  var faq_contents = '一輩子';
-  var faq_content = faq_contents.split('|');
+  // var faq_titles = '1.開始時間';
+  // var faq_title = faq_titles.split('|');
+  // var faq_contents = '一輩子';
+  // var faq_content = faq_contents.split('|');
 
-  var faqSB = new StringBuilder();
-  var result = document.querySelector('.faqMenu');
+  // var faqSB = new StringBuilder();
+  // var result = document.querySelector('.faqMenu');
 
-  for (i = 0; i < faq_title.length; i++) {
-    faqSB.append('<div class="faq-question">');
-    faqSB.append('<a href="#" class="slide-faq">');
-    faqSB.append('<span>' + faq_title[i] + '</span>');
-    faqSB.append('<span class="arrow"></span>');
-    faqSB.append('</a>');
-    faqSB.append('<div class="faq-answer">' + faq_content[i] + '</div>');
-    faqSB.append('</div>');
-  }
-  result.innerHTML = faqSB.toString();
+  // for (i = 0; i < faq_title.length; i++) {
+  //   faqSB.append('<div class="faq-question">');
+  //   faqSB.append('<a href="#" class="slide-faq">');
+  //   faqSB.append('<span>' + faq_title[i] + '</span>');
+  //   faqSB.append('<span class="arrow"></span>');
+  //   faqSB.append('</a>');
+  //   faqSB.append('<div class="faq-answer">' + faq_content[i] + '</div>');
+  //   faqSB.append('</div>');
+  // }
+  // result.innerHTML = faqSB.toString();
 
-  //Team
-  var team_names = 'AA|BB';
-  var team_name = team_names.split('|');
-  var team_jobs = '睡覺|掃廁所';
-  var team_job = team_jobs.split('|');
+  // //Team
+  // var team_names = 'AA|BB';
+  // var team_name = team_names.split('|');
+  // var team_jobs = '睡覺|掃廁所';
+  // var team_job = team_jobs.split('|');
 
-  var teamSB = new StringBuilder();
-  var result = document.querySelector('.teamMenu');
+  // var teamSB = new StringBuilder();
+  // var result = document.querySelector('.teamMenu');
 
-  for (i = 0; i < team_name.length; i++) {
-    teamSB.append('<div class="col-md-4 col-6 t-align-center m_20">');
-    teamSB.append('<img src="images/team_member_0' + (i + 1) + '.png" alt="" width="120">');
-    teamSB.append('<p>' + team_name[i] + '</p>');
-    teamSB.append('<p>' + team_job[i] + '</p>');
-    teamSB.append('</div>');
-  }
-  result.innerHTML = teamSB.toString();
+  // for (i = 0; i < team_name.length; i++) {
+  //   teamSB.append('<div class="col-md-4 col-6 t-align-center m_20">');
+  //   teamSB.append('<img src="images/team_member_0' + (i + 1) + '.png" alt="" width="120">');
+  //   teamSB.append('<p>' + team_name[i] + '</p>');
+  //   teamSB.append('<p>' + team_job[i] + '</p>');
+  //   teamSB.append('</div>');
+  // }
+  // result.innerHTML = teamSB.toString();
 
-  $(document).ready(function () {
-    $('.slide-faq').click(function () {
-      $(this).parent().find('.faq-answer').slideToggle('slow').parent().find('.arrow').toggleClass('active');
-      return false;
-    });
-  });
+  // $(document).ready(function () {
+  //   $('.slide-faq').click(function () {
+  //     $(this).parent().find('.faq-answer').slideToggle('slow').parent().find('.arrow').toggleClass('active');
+  //     return false;
+  //   });
+  // });
 
   jQuery(document).ready(function ($) {
     var $timeline_block = $('.cd-timeline-block');
@@ -208,6 +217,16 @@ $(document).ready(function () {
       function () {
         $('.bxl-discord-alt').removeClass('bx-tada');
         $('.bxl-discord-alt').attr('style', 'color:#ffffff;font-size:36px');
+      }
+    );
+    $('#ig').hover(
+      function () {
+        $('.bxl-instagram-alt').addClass('bx-tada');
+        $('.bxl-instagram-alt').attr('style', 'color:red;font-size:36px');
+      },
+      function () {
+        $('.bxl-instagram-alt').removeClass('bx-tada');
+        $('.bxl-instagram-alt').attr('style', 'color:#ffffff;font-size:36px');
       }
     );
   });
