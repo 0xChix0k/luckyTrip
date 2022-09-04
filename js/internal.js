@@ -1,0 +1,214 @@
+$(document).ready(function () {
+  $('.connect').click(function () {
+    connect();
+  });
+
+  $('.mint_btn').click(function () {
+    checkBuyAmount();
+  });
+
+  $('.show_btn').click(function () {
+    $('.show_result').addClass('active');
+  });
+
+  $('.md-close,.md .md-overlay').click(function () {
+    $('.md').removeClass('active');
+    $('#status').show();
+    $('#preloader').show();
+    $('#status-box').show();
+    $('#preloader-box').show();
+  });
+
+  $('.menu_button,header .md-overlay,.menu_mob a').click(function () {
+    $('header').toggleClass('active');
+    $('.menu_mob').slideToggle();
+  });
+
+  // bag slide
+  $(document).ready(function () {
+    $('#slide').click(function () {
+      $('.mint-bag').toggleClass('ldx ldx-bounceAlt active');
+      $('.mint-bag-area').slideToggle('slow').parent().find('.mint-bag-arrow').toggleClass('active');
+      return false;
+    });
+  });
+
+  //SocialMedia
+  var twitterURL = 'https://twitter.com/tinyminer_yt';
+  var discordURL = 'https://discord.gg/redcatdao';
+  var socialMediaSB = new StringBuilder();
+  var result = document.querySelector('.socialMedia');
+
+  if (twitterURL.length > 0) {
+    socialMediaSB.append('<a href="' + twitterURL + '" id="tweet" target="_blank">');
+    socialMediaSB.append('<span><i class="bx bxl-twitter" style="color:#ffffff;font-size:36px"></i></span>');
+    socialMediaSB.append('<span>Twitter</span>');
+    socialMediaSB.append('</a>');
+  }
+
+  if (discordURL.length > 0) {
+    socialMediaSB.append('<a href="' + discordURL + '" id="discord" target="_blank">');
+    socialMediaSB.append('<span><i class="bx bxl-discord-alt" style="color:#ffffff;font-size:36px" ></i></span>');
+    socialMediaSB.append('<span>Discord</span>');
+    socialMediaSB.append('</a>');
+  }
+  result.innerHTML = socialMediaSB.toString();
+
+  //Roadmap
+  var roadmap_titles = '3月|6月';
+  var roadmap_title = roadmap_titles.split('|');
+  var roadmap_contents = '沒事|有事';
+  var roadmap_content = roadmap_contents.split('|');
+
+  var roadmapSB = new StringBuilder();
+  var result = document.querySelector('.roadmapMenu');
+
+  for (i = 0; i < roadmap_title.length; i++) {
+    roadmapSB.append('<div class="cd-timeline-block">');
+    roadmapSB.append('<div class="cd-timeline-img cd-picture">');
+    roadmapSB.append('<img src="images/logo-icon.svg" alt="Picture">');
+    roadmapSB.append('</div>');
+    roadmapSB.append('<div class="cd-timeline-content">');
+    roadmapSB.append('<h2>' + roadmap_title[i] + '</h2>');
+    roadmapSB.append('<p>' + roadmap_content[i] + '</p>');
+    roadmapSB.append('</div>');
+    roadmapSB.append('</div>');
+  }
+  result.innerHTML = roadmapSB.toString();
+
+  //FAQ
+  var faq_titles = '1.開始時間';
+  var faq_title = faq_titles.split('|');
+  var faq_contents = '一輩子';
+  var faq_content = faq_contents.split('|');
+
+  var faqSB = new StringBuilder();
+  var result = document.querySelector('.faqMenu');
+
+  for (i = 0; i < faq_title.length; i++) {
+    faqSB.append('<div class="faq-question">');
+    faqSB.append('<a href="#" class="slide-faq">');
+    faqSB.append('<span>' + faq_title[i] + '</span>');
+    faqSB.append('<span class="arrow"></span>');
+    faqSB.append('</a>');
+    faqSB.append('<div class="faq-answer">' + faq_content[i] + '</div>');
+    faqSB.append('</div>');
+  }
+  result.innerHTML = faqSB.toString();
+
+  //Team
+  var team_names = 'AA|BB';
+  var team_name = team_names.split('|');
+  var team_jobs = '睡覺|掃廁所';
+  var team_job = team_jobs.split('|');
+
+  var teamSB = new StringBuilder();
+  var result = document.querySelector('.teamMenu');
+
+  for (i = 0; i < team_name.length; i++) {
+    teamSB.append('<div class="col-md-4 col-6 t-align-center m_20">');
+    teamSB.append('<img src="images/team_member_0' + (i + 1) + '.png" alt="" width="120">');
+    teamSB.append('<p>' + team_name[i] + '</p>');
+    teamSB.append('<p>' + team_job[i] + '</p>');
+    teamSB.append('</div>');
+  }
+  result.innerHTML = teamSB.toString();
+
+  $(document).ready(function () {
+    $('.slide-faq').click(function () {
+      $(this).parent().find('.faq-answer').slideToggle('slow').parent().find('.arrow').toggleClass('active');
+      return false;
+    });
+  });
+
+  jQuery(document).ready(function ($) {
+    var $timeline_block = $('.cd-timeline-block');
+
+    //hide timeline blocks which are outside the viewport
+    $timeline_block.each(function () {
+      if ($(this).offset().top > $(window).scrollTop() + $(window).height() * 0.75) {
+        $(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
+      }
+    });
+
+    //on scolling, show/animate timeline blocks when enter the viewport
+    $(window).on('scroll', function () {
+      $timeline_block.each(function () {
+        if (
+          $(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.75 &&
+          $(this).find('.cd-timeline-img').hasClass('is-hidden')
+        ) {
+          $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
+        }
+      });
+    });
+  });
+
+  $(function () {
+    // This will select everything with the class smoothScroll
+    // This should prevent problems with carousel, scrollspy, etc...
+    $('.header-scroll').click(function () {
+      if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+        if (target.length) {
+          $('html,body').animate(
+            {
+              scrollTop: target.offset().top - 100,
+            },
+            1000
+          ); // The number here represents the speed of the scroll in milliseconds
+          return false;
+        }
+      }
+    });
+  });
+
+  function changePrice() {
+    const priceFix = parseFloat(web3.utils.fromWei(contractPrice)).toFixed(2);
+
+    var value = document.querySelector('.mint-value');
+    var price = ($('#qty_input').val() * priceFix).toFixed(2);
+    value.innerHTML = price + 'ETH';
+  }
+
+  $(document).ready(function () {
+    $('#qty_input').prop('disabled', true);
+
+    $('#plus-btn').click(function () {
+      $('#qty_input').val(parseInt($('#qty_input').val()) + 1);
+      if ($('#qty_input').val() >= parseInt(contractMaxMint)) {
+        $('#qty_input').val(contractMaxMint);
+      }
+      changePrice();
+    });
+
+    $('#minus-btn').click(function () {
+      $('#qty_input').val(parseInt($('#qty_input').val()) - 1);
+      if ($('#qty_input').val() == 0) {
+        $('#qty_input').val(1);
+      }
+      changePrice();
+    });
+    $('#tweet').hover(
+      function () {
+        $('.bxl-twitter').addClass('bx-tada');
+        $('.bxl-twitter').attr('style', 'color:blue;font-size:36px');
+      },
+      function () {
+        $('.bxl-twitter').removeClass('bx-tada');
+        $('.bxl-twitter').attr('style', 'color:#ffffff;font-size:36px');
+      }
+    );
+    $('#discord').hover(
+      function () {
+        $('.bxl-discord-alt').addClass('bx-tada');
+        $('.bxl-discord-alt').attr('style', 'color:blue;font-size:36px');
+      },
+      function () {
+        $('.bxl-discord-alt').removeClass('bx-tada');
+        $('.bxl-discord-alt').attr('style', 'color:#ffffff;font-size:36px');
+      }
+    );
+  });
+});

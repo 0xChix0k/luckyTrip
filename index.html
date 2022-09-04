@@ -1,0 +1,295 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <!-- 彈窗-->
+    <link href="js/lity/lity.css" rel="stylesheet" type="text/css">
+    <!-- 輪播-->
+    <link href="js/swiper/swiper.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <!-- <script src="js/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <!-- 彈窗-->
+    <script src="js/lity/lity.js"></script>
+    <!-- 輪播-->
+    <script src="js/swiper/swiper.min.js"></script>
+    <!-- Web3-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/keccak256@latest/keccak256.js"></script>
+    <!-- <script src="js/keccak256.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/merkletreejs@latest/merkletree.js"></script>
+    <!-- <script src="js/merkleTree.js"></script> -->
+    <!-- <script src="js/config.js"></script> -->
+    <script src="js/internal.js"></script>
+    <script src="js/web3.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="shortcut icon" href="images/ico.ico" />
+    <title class="titleName"></title>
+</head>
+
+<body>
+
+    <div class="md mint_result">
+        <div class="md-modal">
+            <button class="lity-close md-close" type="button">×</button>
+            <div class="md-content look_nft">
+                <div class="card">
+                    <img id="imgToken" src="images/mint-loading.gif" class="card-img-top" alt="loading">
+                    <div class="card-body p-0 bg-dark">
+                        <h2 class="card-title bg-dark tokenid fw-bold" style="color: yellow;">#00</h2>
+                        <!-- <p class="card-text tokenid">#00</p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="md-overlay"></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <a href="javascript:;" class="menu_button">
+                <div class="menuicon"></div>
+            </a>
+            <nav class="menu">
+                <ul>
+                    <li>
+                        <a href="#mint" class="m_a active header-scroll">MINT</a>
+                    </li>
+                    <li>
+                        <a href="#about" class="m_b header-scroll">About Us</a>
+                    </li>
+                    <li>
+                        <a href="#story" class="m_c header-scroll">Story</a>
+                    </li>
+                    <img src="images/logo.png" alt="" class="logo" width="200" height="50">
+                    <li>
+                        <a href="#roadmap" class="m_a header-scroll">Roadmap</a>
+                    </li>
+                    <li>
+                        <a href="#faq" class="m_b header-scroll">FAQ</a>
+                    </li>
+                    <li>
+                        <a href="#team" class="m_b header-scroll">Team</a>
+                    </li>
+                </ul>
+            </nav>
+            <a href="#" class="connect">
+                CONNECT
+            </a>
+        </div>
+        <nav class="menu_mob">
+            <ul>
+                <li>
+                    <a href="#mint" class="m_a active header-scroll">MINT</a>
+                </li>
+                <li>
+                    <a href="#about" class="m_b header-scroll">About Us</a>
+                </li>
+                <li>
+                    <a href="#story" class="m_c header-scroll">Story</a>
+                </li>
+                <li>
+                    <a href="#roadmap" class="m_a header-scroll">Roadmap</a>
+                </li>
+                <li>
+                    <a href="#faq" class="m_b header-scroll">FAQ</a>
+                </li>
+                <li>
+                    <a href="#team" class="m_b header-scroll">Team</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="md-overlay"></div>
+    </header>
+
+    <section class="main-box" id="mint">
+        <div class="container">
+            <div class="tab-inner">
+                <div class="row">
+                    <div class="col-12 t-align-center m_20">
+                        <img src="images/logo.png" alt="" class="logo menu_m" width="200" height="50">
+                        <div class="mint-box m_20">
+                            <div class="swiper mySwiper">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img src="images/nft_01.png" />
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img src="images/nft_02.png" />
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img src="images/nft_03.png" />
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img src="images/nft_04.png" />
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img src="images/nft_05.png" />
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img src="images/nft_06.png" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="input-group m_10 row mx-auto">
+                            <div class="input-group-prepend col d-flex justify-content-end">
+                                <button class="btn btn-danger" id="minus-btn"><i class="fa fa-minus"></i></button>
+                            </div>
+                            <div class="col-3">
+                                <input type="number" id="qty_input"
+                                    class="form-control form-control-sm t-align-center fs-3 fw-bold" value="1" min="1">
+                            </div>
+                            <div class="input-group-prepend col d-flex justify-content-start">
+                                <button class="btn btn-danger" id="plus-btn"><i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+
+                        <a href="javascript:;" type="button" class="mint-btn mint_btn m_10">
+                            MINT
+                        </a>
+                        <p class="mint-value">XXXETH</p>
+                        <p class="mint-total">(XX/XX)</p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="recom" id="about" style="background-color: #000;">
+        <div class="container">
+            <div class="row" style="display: flex; align-items: center;">
+                <div class="col-md-6">
+                    <div class="about-us">
+                        <h2 class="section-title m_20">About Us</h2>
+                        <h1 class="m_30"> 關於我們
+                        </h1>
+                        <br>
+                        <div class="about-btn socialMedia flex-column">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="images/about_us.png" alt="" style="margin: 0 auto;display: block;">
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="story" id="story">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class=" t-align-center">
+                        <p class="section-title m_20">Background Story</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="images/background_story_01.png" alt="">
+                        </div>
+                        <div class="col-md-4 story-m">
+                            <img src="images/background_story_02.png" alt="">
+                        </div>
+                        <div class="col-md-4 story-m">
+                            <img src="images/background_story_03.png" alt="">
+                        </div>
+                        <div class="col-md-9" style="margin: 20px auto;">
+                            <p class="t-align-center m_20">
+                                背景故事
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="roadmap" id="roadmap">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="t-align-center">
+                        <p class="section-title">Roadmap</p>
+                    </div>
+                    <div class="roadmap-box">
+                        <section id="cd-timeline" class="cd-container roadmapMenu">
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="t-align-center m_20">
+                        <p class="section-title">FAQ</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9 faqMenu" style="margin: 0 auto;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team" id="team">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="t-align-center">
+                        <p class="section-title">Team</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="row teamMenu">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <footer style="color: #fff;background-color: black;">
+        Copyright © <span style="color: #e99700;">Lucky Trip</span> Reserved
+    </footer>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+
+            autoplay: {
+                delay: 800,
+            },
+            loop: true,
+            speed: 800,
+            effect: "flip",
+            fadeEffect: {
+                crossFade: true
+            },
+            observer: true,
+            observeParents: true,
+        });
+
+        connect()
+    </script>
+</body>
+
+</html>
