@@ -164,9 +164,9 @@ $(document).ready(function () {
         if (target.length) {
           $('html,body').animate(
             {
-              scrollTop: target.offset().top - 100,
+              scrollTop: target.offset().top - 200,
             },
-            1000
+            50
           ); // The number here represents the speed of the scroll in milliseconds
           return false;
         }
