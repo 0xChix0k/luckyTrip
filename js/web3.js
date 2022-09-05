@@ -293,6 +293,23 @@ StringBuilder.prototype.toString = function () {
   return this._sArray.join('');
 };
 
+async function initailConnect() {
+  web3In = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/c780b7e9416640ac8550712b8ed6c1ac'));
+  myContract = new web3In.eth.Contract(ABI, address);
+  let name = await myContract.methods.name().call({ from: coinbase });
+  document.getElementsByClassName('titleName')[0].textContent = name;
+
+  // preMintOpen = await myContract.methods.getStatus().call({ from: coinbase });
+  // console.log(preMintOpen);
+  contractPrice = await web3In.utils.toWei('0.05', 'ether');
+  document.getElementsByClassName('mint-value')[0].textContent = parseFloat(web3In.utils.fromWei(contractPrice)).toFixed(2) + 'ETH';
+
+  let totalSupply = await myContract.methods.totalSupply().call({ from: coinbase });
+  let maxTotal = '5555';
+  document.getElementsByClassName('mint-total')[0].textContent = '(' + totalSupply + '/' + maxTotal + ')';
+  contractMaxMint = 9999;
+}
+
 async function connect() {
   if (typeof web3 !== 'undefined') {
     web3 = new Web3(Web3.givenProvider);

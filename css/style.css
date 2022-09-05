@@ -908,6 +908,7 @@ header .container .menu ul li a {
 }
 
 header .container .menu ul li a:hover {
+  font-size: 120%;
   color: rgb(255, 123, 0);
 }
 
@@ -1255,6 +1256,10 @@ footer {
 .swiper-m{
   border-radius: 100px;
   border:2px solid #d90370;
+}
+.storySwiper{
+  border-radius: 50px;
+  overflow: hidden;
 }
 .mint-box{
   max-width: 500px;
