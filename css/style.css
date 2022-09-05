@@ -1449,7 +1449,15 @@ footer {
   }
   .about-us .socialMedia{
     align-items: center;
+    flex-direction: row !important;
+    justify-content: space-evenly;
   }
+  .about-us .socialMedia span:nth-child(+2){
+    display: none;
+  }  
+  .about-us .socialMedia a{
+    width: 25%;
+  }  
   .about-img{
     display: none;
   }
