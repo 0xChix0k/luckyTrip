@@ -274,6 +274,11 @@ const ABI = [
 ];
 const metamaskChainID = 1;
 const metamaskHexChainID = '0x1';
+const Web3Modal = window.Web3Modal.default;
+const WalletConnectProvider = window.WalletConnectProvider.default;
+const evmChains = window.evmChains;
+let web3Modal;
+let provider;
 let contractPrice;
 let contractMaxMint;
 let preMintOpen;
@@ -292,36 +297,95 @@ StringBuilder.prototype.append = function (str) {
 StringBuilder.prototype.toString = function () {
   return this._sArray.join('');
 };
+function init() {
+  getNFTInfo();
+  getWhiteList();
+  const providerOptions = {
+    walletconnect: {
+      package: WalletConnectProvider,
+      options: {
+        // Mikko's test key - don't copy as your mileage may vary
+        infuraId: 'c780b7e9416640ac8550712b8ed6c1ac',
+      },
+    },
+  };
+  web3Modal = new Web3Modal({
+    network: 'mainnet',
+    cacheProvider: false, // optional
+    providerOptions, // required
+    disableInjectedProvider: false, // optional. For MetaMask / Brave / Opera.
+  });
 
-async function initailConnect() {
-  web3In = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/c780b7e9416640ac8550712b8ed6c1ac'));
-  myContract = new web3In.eth.Contract(ABI, address);
+  console.log('Web3Modal instance is', web3Modal);
+}
+
+//NFT資訊
+async function getNFTInfo() {
+  web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/c780b7e9416640ac8550712b8ed6c1ac'));
+  myContract = new web3.eth.Contract(ABI, address);
   let name = await myContract.methods.name().call({ from: coinbase });
   document.getElementsByClassName('titleName')[0].textContent = name;
 
   // preMintOpen = await myContract.methods.getStatus().call({ from: coinbase });
   // console.log(preMintOpen);
-  contractPrice = await web3In.utils.toWei('0.05', 'ether');
-  document.getElementsByClassName('mint-value')[0].textContent = parseFloat(web3In.utils.fromWei(contractPrice)).toFixed(2) + 'ETH';
+  contractPrice = await web3.utils.toWei('0.05', 'ether');
+  document.getElementsByClassName('mint-value')[0].textContent = parseFloat(web3.utils.fromWei(contractPrice)).toFixed(2) + 'ETH';
 
   let totalSupply = await myContract.methods.totalSupply().call({ from: coinbase });
   let maxTotal = '5555';
   document.getElementsByClassName('mint-total')[0].textContent = '(' + totalSupply + '/' + maxTotal + ')';
+
   contractMaxMint = 9999;
 }
 
-async function connect() {
-  if (typeof web3 !== 'undefined') {
-    web3 = new Web3(Web3.givenProvider);
-    await web3.eth.requestAccounts().then(() => {
-      getChain();
-    });
+async function isConnect() {
+  connected = document.querySelector('.connect').innerText;
+  // console.log(connected);
+  if (connected == 'CONNECT') {
+    connect();
   } else {
-    // web3 = new Web3(new Web3.providers.HttpProvider('https://goerli.infura.io/v3/c780b7e9416640ac8550712b8ed6c1ac'));
-    web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
+    disConnect();
   }
 }
+async function connect() {
+  // console.log('Opening a dialog', web3Modal);
+  try {
+    provider = await web3Modal.connect();
+  } catch (e) {
+    console.log('Could not get a wallet connection', e);
+    return;
+  }
 
+  provider.on('accountsChanged', (accounts) => {
+    connectWallet();
+  });
+  // Subscribe to chainId change
+  provider.on('chainChanged', (chainId) => {
+    connectWallet();
+  });
+  await connectWallet();
+}
+
+async function disConnect() {
+  // await provider.close();
+  await web3Modal.clearCachedProvider();
+  provider = null;
+  document.getElementsByClassName('connect')[0].textContent = 'CONNECT';
+}
+//錢包資料
+async function connectWallet() {
+  chainId = await web3.eth.getChainId();
+  if (chainId != metamaskChainID) {
+    alert('請轉回主網!!!');
+    disConnect();
+    document.querySelector('.mint_btn').innerHTML = 'MINT';
+  } else {
+    web3 = new Web3(provider);
+    coinbase = await web3.eth.getCoinbase();
+    balance = await web3.eth.getBalance(coinbase);
+    document.getElementsByClassName('connect')[0].textContent = parseFloat(web3.utils.fromWei(balance)).toFixed(3) + 'ETH';
+  }
+}
 //讀取鏈
 async function getChain() {
   await web3.eth.getChainId().then(function (chainId) {
@@ -340,52 +404,11 @@ async function getChain() {
   });
 }
 
-//錢包資料
-async function connectWallet() {
-  coinbase = await web3.eth.getCoinbase();
-  balance = await web3.eth.getBalance(coinbase);
-  document.getElementsByClassName('connect')[0].textContent = parseFloat(web3.utils.fromWei(balance)).toFixed(3) + 'ETH';
-  myContract = new web3.eth.Contract(ABI, address);
-  getNFTInfo();
-  getWhiteList();
-}
-
-//NFT資訊
-async function getNFTInfo() {
-  let name = await myContract.methods.name().call({ from: coinbase });
-  document.getElementsByClassName('titleName')[0].textContent = name;
-
-  // preMintOpen = await myContract.methods.getStatus().call({ from: coinbase });
-  // console.log(preMintOpen);
-  contractPrice = await web3.utils.toWei('0.05', 'ether');
-  document.getElementsByClassName('mint-value')[0].textContent = parseFloat(web3.utils.fromWei(contractPrice)).toFixed(2) + 'ETH';
-
-  let totalSupply = await myContract.methods.totalSupply().call({ from: coinbase });
-  let maxTotal = '5555';
-  document.getElementsByClassName('mint-total')[0].textContent = '(' + totalSupply + '/' + maxTotal + ')';
-
-  contractMaxMint = 9999;
-}
-
-//監聽切換network
-ethereum
-  .on('chainChanged', (chainId) => {
-    if (chainId != metamaskChainID) {
-      //錯誤清空資料
-      document.getElementsByClassName('connect')[0].textContent = 'CONNECT';
-      document.getElementsByClassName('mint_btn')[0].textContent = 'CONNECT';
-      document.getElementsByClassName('mint-total')[0].textContent = '(X/X)';
-      document.getElementsByClassName('mint-value')[0].textContent = 'X.XXETH';
-      var result = (document.querySelector('.mint_btn').innerHTML = 'MINT');
-    } else {
-      connect();
-    }
-  })
-  .on('accountsChanged', (accounts) => {
-    connectWallet();
-  });
-
 async function mint() {
+  connected = document.querySelector('.connect').innerText;
+  if (connected == 'CONNECT') {
+    connect();
+  }
   await web3.eth.getChainId().then(function (chainId) {
     if (chainId == metamaskChainID) {
       var result = document.querySelector('.mint_btn');
@@ -395,6 +418,7 @@ async function mint() {
       // web3.eth.handleRevert = true;
       //pre mint
       //public mint
+      myContract = new web3.eth.Contract(ABI, address);
       myContract.methods
         .firstMint(amount)
         .send({
@@ -408,6 +432,7 @@ async function mint() {
           eror(error);
         });
     } else {
+      console.log('QQ');
       connect();
     }
   });
@@ -497,3 +522,7 @@ async function getWhiteList() {
   merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
   haveWhiteList = whitelistAddresses.indexOf(coinbase);
 }
+
+window.addEventListener('load', async () => {
+  init();
+});

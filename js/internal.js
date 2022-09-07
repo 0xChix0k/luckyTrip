@@ -1,10 +1,9 @@
 $(document).ready(function () {
   $('.connect').click(function () {
-    connect();
+    isConnect();
   });
 
   $('.mint_btn').click(function () {
-    connect();
     mint();
   });
 
