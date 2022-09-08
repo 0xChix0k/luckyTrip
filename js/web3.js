@@ -408,6 +408,7 @@ async function getChain() {
 async function mint() {
   var result = document.querySelector('.mint_btn');
   result.innerHTML = 'MINT . . . . . .';
+  alert('mint start');
   var amount = $('#qty_input').val();
   var price = Math.round(amount * contractPrice * 100) / 100;
   myContract = new web3.eth.Contract(ABI, address);
@@ -418,9 +419,12 @@ async function mint() {
       value: price,
     })
     .then((receipt) => {
+      alert('receipt');
       inReceipt(receipt);
     })
     .catch((error) => {
+      alert('receipt');
+      alert(error);
       eror(error);
     });
 }
