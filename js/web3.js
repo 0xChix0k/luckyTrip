@@ -402,13 +402,9 @@ async function mint() {
       value: price,
     })
     .then((receipt) => {
-      alert('receipt')
       inReceipt(receipt);
     })
     .catch((error) => {
-      console.log(error.toString(););
-      alert('error');
-      alert(error);
       eror(error);
     });
 }
@@ -455,6 +451,7 @@ async function inReceipt(receipt) {
 }
 
 function eror(error) {
+  alert(error.message);
   console.log(error);
   document.querySelector('.mint_btn').innerHTML = 'MINT';
   $('.mint_result').removeClass('active');
