@@ -406,33 +406,23 @@ async function getChain() {
 }
 
 async function mint() {
-  await web3.eth.getChainId().then(function (chainId) {
-    if (chainId == metamaskChainID) {
-      var result = document.querySelector('.mint_btn');
-      result.innerHTML = 'MINT . . . . . .';
-      var amount = $('#qty_input').val();
-      var price = Math.round(amount * contractPrice * 100) / 100;
-      // web3.eth.handleRevert = true;
-      //pre mint
-      //public mint
-      myContract = new web3.eth.Contract(ABI, address);
-      myContract.methods
-        .firstMint(amount)
-        .send({
-          from: coinbase,
-          value: price,
-        })
-        .then((receipt) => {
-          inReceipt(receipt);
-        })
-        .catch((error) => {
-          eror(error);
-        });
-    } else {
-      console.log('QQ');
-      connect();
-    }
-  });
+  var result = document.querySelector('.mint_btn');
+  result.innerHTML = 'MINT . . . . . .';
+  var amount = $('#qty_input').val();
+  var price = Math.round(amount * contractPrice * 100) / 100;
+  myContract = new web3.eth.Contract(ABI, address);
+  await myContract.methods
+    .firstMint(amount)
+    .send({
+      from: coinbase,
+      value: price,
+    })
+    .then((receipt) => {
+      inReceipt(receipt);
+    })
+    .catch((error) => {
+      eror(error);
+    });
 }
 
 async function inReceipt(receipt) {
