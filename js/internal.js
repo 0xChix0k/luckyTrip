@@ -4,7 +4,12 @@ $(document).ready(function () {
   });
 
   $('.mint_btn').click(function () {
-    mint();
+    connected = document.querySelector('.connect').innerText;
+    if (connected == 'CONNECT') {
+      connect().then(() => mint());
+    } else {
+      mint();
+    }
   });
 
   $('.show_btn').click(function () {
