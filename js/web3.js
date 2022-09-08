@@ -274,6 +274,8 @@ const ABI = [
 ];
 const metamaskChainID = 1;
 const metamaskHexChainID = '0x1';
+const chainName = 'mainnet';
+const infura_Id = 'c780b7e9416640ac8550712b8ed6c1ac';
 const Web3Modal = window.Web3Modal.default;
 const WalletConnectProvider = window.WalletConnectProvider.default;
 const evmChains = window.evmChains;
@@ -306,13 +308,13 @@ async function init() {
       package: WalletConnectProvider,
       options: {
         // Mikko's test key - don't copy as your mileage may vary
-        infuraId: 'c780b7e9416640ac8550712b8ed6c1ac',
+        infuraId: infura_Id,
         bridge: 'https://bridge.walletconnect.org',
       },
     },
   };
   web3Modal = new Web3Modal({
-    network: 'mainnet',
+    network: chainName,
     cacheProvider: false, // optional
     providerOptions, // required
     disableInjectedProvider: false, // optional. For MetaMask / Brave / Opera.
@@ -322,7 +324,7 @@ async function init() {
 
 //NFT資訊
 async function getNFTInfo() {
-  web3In = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/c780b7e9416640ac8550712b8ed6c1ac'));
+  web3In = new Web3(new Web3.providers.HttpProvider(`https://${chainName}.infura.io/v3/${infura_Id}`));
   myContract = new web3In.eth.Contract(ABI, address);
   let name = await myContract.methods.name().call({ from: coinbase });
   document.getElementsByClassName('titleName')[0].textContent = name;
@@ -451,7 +453,7 @@ async function inReceipt(receipt) {
 }
 
 function eror(error) {
-  alert(error.message);
+  alert(error);
   console.log(error);
   document.querySelector('.mint_btn').innerHTML = 'MINT';
   $('.mint_result').removeClass('active');

@@ -1197,9 +1197,7 @@ footer {
 }
 
 @media (max-width: 500px) {
-  .md .md-modal {
-    width: calc(100vw - 15px);
-  }
+
   .md .md-modal .md-content {
     padding: 15px;
   }
@@ -1296,6 +1294,10 @@ footer {
   }
   .mint-box{
     width: 80%;
+  }
+  
+  .md .md-modal{
+    width: 70%;
   }
 }
 .mint-btn{
