@@ -348,6 +348,7 @@ async function isConnect() {
     disConnect();
   }
 }
+
 async function connect() {
   const provider = await web3Modal.connect();
   web3 = new Web3(provider);
@@ -387,28 +388,10 @@ async function connectWallet() {
     document.getElementsByClassName('connect')[0].textContent = parseFloat(web3.utils.fromWei(balance)).toFixed(3) + 'ETH';
   }
 }
-//讀取鏈
-async function getChain() {
-  await web3.eth.getChainId().then(function (chainId) {
-    if (chainId == metamaskChainID) {
-      connectWallet();
-    } else {
-      window.ethereum
-        .request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: metamaskHexChainID }],
-        })
-        .then(() => {
-          connectWallet();
-        });
-    }
-  });
-}
 
 async function mint() {
   var result = document.querySelector('.mint_btn');
   result.innerHTML = 'MINT . . . . . .';
-  alert('mint start');
   var amount = $('#qty_input').val();
   var price = Math.round(amount * contractPrice * 100) / 100;
   myContract = new web3.eth.Contract(ABI, address);
@@ -419,11 +402,12 @@ async function mint() {
       value: price,
     })
     .then((receipt) => {
-      alert('receipt');
+      alert('receipt')
       inReceipt(receipt);
     })
     .catch((error) => {
-      alert('receipt');
+      console.log(error.toString(););
+      alert('error');
       alert(error);
       eror(error);
     });
