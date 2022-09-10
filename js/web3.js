@@ -370,15 +370,6 @@ async function connect() {
     }
     connectWallet();
   });
-  // provider.on('accountsChanged', (accounts) => {
-  //   self.accountChanged(accounts);
-  // });
-  // provider.on('chainChanged', (chainId) => {
-  //   self.chainChanged(chainId);
-  // });
-  // provider.on('connect', (chainId) => {
-  //   self.chainChanged(chainId);
-  // });
   connectWallet();
 }
 
@@ -402,7 +393,7 @@ async function connectWallet() {
   //   disConnect();
   //   document.querySelector('.mint_btn').innerHTML = 'MINT';
   // } else {
-  // web3 = new Web3(provider);
+  web3 = new Web3(provider);
   coinbase = await web3.eth.getCoinbase();
   balance = await web3.eth.getBalance(coinbase);
   document.getElementsByClassName('connect')[0].textContent = parseFloat(web3.utils.fromWei(balance)).toFixed(3) + 'ETH';
