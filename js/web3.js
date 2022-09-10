@@ -468,6 +468,9 @@ async function inReceipt(receipt) {
       })(i);
     }
     if (amount > 1) {
+      $('.mint-swiper').append('<div class="swiper-button-next"></div>');
+      $('.mint-swiper').append('<div class="swiper-button-prev"></div>');
+      $('.mint-swiper').append('<div class="swiper-pagination"></div>');
       var mintSwipt = new Swiper('.mint-swiper', {
         effect: 'cube',
         grabCursor: true,
