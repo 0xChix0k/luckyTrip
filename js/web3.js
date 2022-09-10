@@ -367,8 +367,8 @@ async function connect() {
   provider.on('chainChanged', (chainId) => {
     if (chainId != metamaskHexChainID) {
       alert('請連線至正確的區塊鏈: [' + chainName + '] !!');
-      connectWallet();
     }
+    connectWallet();
   });
   // provider.on('accountsChanged', (accounts) => {
   //   self.accountChanged(accounts);
