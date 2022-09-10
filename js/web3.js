@@ -365,8 +365,20 @@ async function connect() {
   });
   // Subscribe to chainId change
   provider.on('chainChanged', (chainId) => {
-    connectWallet();
+    if (chainId != metamaskHexChainID) {
+      alert('請連線至正確的區塊鏈: [' + chainName + '] !!');
+      connectWallet();
+    }
   });
+  // provider.on('accountsChanged', (accounts) => {
+  //   self.accountChanged(accounts);
+  // });
+  // provider.on('chainChanged', (chainId) => {
+  //   self.chainChanged(chainId);
+  // });
+  // provider.on('connect', (chainId) => {
+  //   self.chainChanged(chainId);
+  // });
   connectWallet();
 }
 
@@ -378,17 +390,23 @@ async function disConnect() {
 }
 //錢包資料
 async function connectWallet() {
-  chainId = await web3.eth.getChainId();
-  if (chainId != metamaskChainID) {
-    alert('請轉回主網!!!');
-    disConnect();
-    document.querySelector('.mint_btn').innerHTML = 'MINT';
-  } else {
-    // web3 = new Web3(provider);
-    coinbase = await web3.eth.getCoinbase();
-    balance = await web3.eth.getBalance(coinbase);
-    document.getElementsByClassName('connect')[0].textContent = parseFloat(web3.utils.fromWei(balance)).toFixed(3) + 'ETH';
-  }
+  // chainId = await web3.eth.getChainId();
+  // console.log(chainId);
+  const params = [{ chainId: metamaskHexChainID }];
+  await window.ethereum.request({
+    method: 'wallet_switchEthereumChain',
+    params: params,
+  });
+  // if (chainId != metamaskChainID) {
+  //   // alert('請轉回主網!!!');
+  //   disConnect();
+  //   document.querySelector('.mint_btn').innerHTML = 'MINT';
+  // } else {
+  // web3 = new Web3(provider);
+  coinbase = await web3.eth.getCoinbase();
+  balance = await web3.eth.getBalance(coinbase);
+  document.getElementsByClassName('connect')[0].textContent = parseFloat(web3.utils.fromWei(balance)).toFixed(3) + 'ETH';
+  // }
 }
 
 async function mint() {
@@ -412,49 +430,81 @@ async function mint() {
 }
 
 async function inReceipt(receipt) {
+  console.log(receipt);
+  // var result = document.querySelector('.look_nft');
+  var nftUrl;
   var amount = $('#qty_input').val();
-  var sb = new StringBuilder();
-  var result = document.querySelector('.look_nft');
-  let tokenId = receipt.events.Transfer.returnValues[2];
-  await myContract.methods
-    .tokenURI(tokenId)
-    .call({ from: coinbase })
-    .then(async function (uri) {
-      fetch(urlCache(uri) + '?' + Math.random()).then((response) => {
-        console.log('response:' + response);
-        response
-          .json()
-          .then((data) => ({
-            data: data,
-          }))
-          .then((myJson) => {
-            console.log(myJson.data.toString());
-            console.log('myJson:' + myJson.data.toString());
-            $('.mint_result').addClass('active');
-            $('#status').delay(1000).fadeOut(500);
-            $('#preloader').delay(1000).fadeOut(500);
-            $('#imgToken').attr('src', urlCache(myJson.data.image));
-            $('.tokenid').text('#' + tokenId);
-            // sb.append('<img src=' + urlCache(myJson.data.image) + ' alt=""');
-            // sb.append('<p>');
-            // for (i = 0; i < amount; i++) {
-            //   sb.append('#' + tokenId);
-            // }
-            // sb.append('</p>');
-            // result.innerHTML = sb.toString();
-          });
-      });
-    });
+  // console.log(amount);
+  let idArr = new Array();
 
-  connectWallet();
-  getNFTInfo();
-  var result = document.querySelector('.mint_btn');
-  result.innerHTML = 'MINT';
+  $('.mint_result').addClass('active');
+  $('.mint_result').attr('style', 'display:block;');
+  $('#load').attr('style', 'display:block;');
+  for (i = 0; i < amount; i++) {
+    var sb = new StringBuilder();
+    var tokenId = amount > 1 ? receipt.events.Transfer[i].returnValues.tokenId : receipt.events.Transfer.returnValues.tokenId;
+    idArr.push(tokenId);
+    sb.append('<div class="card swiper-slide sw">');
+    sb.append('<img src="images/mint-loading.gif" alt="" class="card-img-top" id="P' + tokenId + '">');
+    sb.append('<div class="card-body bg-black">');
+    sb.append('<h3 class="card-title text-warning" id="T' + tokenId + '">Please Waiting....</h3>');
+    sb.append('</div></div>');
+    // console.log(sb.toString());
+    $('.look_nft').append(sb.toString());
+  }
+  await (async () => {
+    for (i = 0; i < amount; i++) {
+      await (async (i) => {
+        // console.log('tokenId_代號: ' + idArr[i]);
+        await myContract.methods
+          .tokenURI(idArr[i])
+          .call({ from: coinbase })
+          .then(function (uri) {
+            fetch(urlCache(uri) + '?' + Math.random()).then((response) => {
+              response
+                .json()
+                .then((data) => ({
+                  data: data,
+                }))
+                .then((myJson) => {
+                  nftUrl = urlCache(myJson.data.image);
+                  // console.log('myJson_代號: ' + idArr[i] + ', 網址: ' + nftUrl);
+                  $('#P' + idArr[i]).attr('src', nftUrl);
+                  $('#T' + idArr[i]).text('Token Id: #' + idArr[i]);
+                });
+            });
+          });
+      })(i);
+    }
+    if (amount > 1) {
+      var mintSwipt = new Swiper('.mint-swiper', {
+        effect: 'cube',
+        grabCursor: true,
+        cubeEffect: {
+          slideShadows: true,
+          shadow: true,
+          shadowOffset: 100,
+          shadowScale: 0.6,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    }
+    $('#load').attr('style', 'display:none;');
+    connectWallet();
+    var result = document.querySelector('.mint_btn');
+    result.innerHTML = 'MINT';
+  })();
 }
 
 function eror(error) {
   alert(error);
-  console.log(error);
+  // console.log(error);
   document.querySelector('.mint_btn').innerHTML = 'MINT';
   $('.mint_result').removeClass('active');
 }

@@ -5,10 +5,10 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <!-- <meta property="og:title" content="名稱或標題" > -->
-    <!-- <meta property="og:url" content="網址"> -->
-    <meta property="og:image" content="https://evileye0666.github.io/luckyTrip/images/banner.jpg">
-    <meta property="og:description" content="Take Cards,Get Gifts!">
+    <!-- <meta property="og:title" content="名稱或標題">
+    <meta property="og:url" content="網址">
+    <meta property="og:image" content="網址+縮圖路徑">
+    <meta property="og:description" content="描述"> -->
     <link rel="shortcut icon" href="images/ico.ico" />
     <title class="titleName"></title>
     <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
@@ -20,19 +20,20 @@
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/reset.css">
+
 </head>
 
 <body>
-
     <div class="md mint_result">
         <div class="md-modal">
-            <button class="lity-close md-close" type="button">×</button>
-            <div class="md-content look_nft">
-                <div class="card">
-                    <img id="imgToken" src="images/mint-loading.gif" class="card-img-top" alt="loading">
-                    <div class="card-body p-0 bg-dark">
-                        <h2 class="card-title bg-dark tokenid fw-bold" style="color: yellow;">#00</h2>
-                        <!-- <p class="card-text tokenid">#00</p> -->
+            <button class="lity-close md-close" type="button">☒</button>
+            <div class="md-content swiper mint-swiper">
+                <div class="look_nft swiper-wrapper">
+                    <div class="card" id="load">
+                        <img src="images/mint-loading.gif" alt="" class="card-img-top" id="T">
+                        <div class="card-body bg-black">
+                            <h3 class="card-title text-warning">Please Waiting....</h3>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -156,12 +157,6 @@
         </div>
     </section>
 
-    <section class="lucky-man" style="background-color:#F6C600 ;">
-        <div class="container">
-            <img src="images/lucky-man.jpg" alt="">
-        </div>
-    </section>
-
     <section class="recom" id="about" style="background-color: #000;">
         <div class="container">
             <div class="row" style="display: flex; align-items: center;">
@@ -183,12 +178,18 @@
         </div>
     </section>
 
+    <section class="lucky-man" style="background-color: #F6C600;">
+        <div class="container">
+            <img src="images/lucky-man.jpg" alt="">
+        </div>
+    </section>
+
     <section class="story" id="story">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class=" t-align-center">
-                        <p class="section-title m_20">項目介紹</p>
+                        <p class="section-title m_20">項目資訊簡介</p>
                     </div>
                     <div class="swiper storySwiper">
                         <div class="swiper-wrapper">
@@ -200,9 +201,6 @@
                             </div>
                             <div data-hash="slide3" class="swiper-slide">
                                 <img src="images/background_story_03.png" alt="">
-                            </div>
-                            <div data-hash="slide4" class="swiper-slide">
-                                <img src="images/background_story_04.png" alt="">
                             </div>
                         </div>
                         <div class="swiper-button-next"></div>
@@ -308,14 +306,11 @@
         var swiper = new Swiper(".mySwiper", {
 
             autoplay: {
-                delay: 100,
+                delay: 1000,
             },
             loop: true,
             speed: 500,
-            effect: "flip",
-            flipEffect: {
-                slideShadows: false,
-            }
+            effect: "slide",
             // fadeEffect: {
             //     crossFade: true
             // },
@@ -335,8 +330,6 @@
                 clickable: true,
             },
         });
-        // connect()
-        // initailConnect();
     </script>
 </body>
 

@@ -17,13 +17,18 @@ $(document).ready(function () {
   });
 
   $('.md-close,.md .md-overlay').click(function () {
-    $('.md').removeClass('active');
-    $('#status').show();
-    $('#preloader').show();
-    $('#status-box').show();
-    $('#preloader-box').show();
+    $('.md').removeClass('active', 'swiper-slide-active');
+    $('.mint_result').attr('style', 'display:none;');
+    $('.sw').remove();
+    // $('.status').show();
+    // $('.preloader').show();
+    // $('.status-box').show();
+    // $('.preloader-box').show();
   });
-
+  $('.status').click(function () {
+    $('.status').delay(1000).fadeOut(500);
+    $('.preloader').delay(1000).fadeOut(500);
+  });
   $('.menu_button,header .md-overlay,.menu_mob a').click(function () {
     $('header').toggleClass('active');
     $('.menu_mob').slideToggle();
@@ -168,7 +173,7 @@ $(document).ready(function () {
         if (target.length) {
           $('html,body').animate(
             {
-              scrollTop: target.offset().top - 200,
+              scrollTop: target.offset().top - 100,
             },
             50
           ); // The number here represents the speed of the scroll in milliseconds
@@ -179,7 +184,7 @@ $(document).ready(function () {
   });
 
   function changePrice() {
-    const priceFix = parseFloat(web3.utils.fromWei(contractPrice)).toFixed(2);
+    const priceFix = parseFloat(web3In.utils.fromWei(contractPrice)).toFixed(2);
 
     var value = document.querySelector('.mint-value');
     var price = ($('#qty_input').val() * priceFix).toFixed(2);
