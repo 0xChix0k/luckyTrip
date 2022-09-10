@@ -308,13 +308,13 @@ async function init() {
       package: WalletConnectProvider,
       options: {
         // Mikko's test key - don't copy as your mileage may vary
-        infuraId: infura_Id,
+        infuraId: 'c780b7e9416640ac8550712b8ed6c1ac',
         bridge: 'https://bridge.walletconnect.org',
       },
     },
   };
   web3Modal = new Web3Modal({
-    network: chainName,
+    network: 'mainnet',
     cacheProvider: false, // optional
     providerOptions, // required
     disableInjectedProvider: false, // optional. For MetaMask / Brave / Opera.
