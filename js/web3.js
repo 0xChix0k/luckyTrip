@@ -278,7 +278,6 @@ const chainName = 'mainnet';
 const infura_Id = 'c780b7e9416640ac8550712b8ed6c1ac';
 const Web3Modal = window.Web3Modal.default;
 const WalletConnectProvider = window.WalletConnectProvider.default;
-const evmChains = window.evmChains;
 let web3Modal;
 let contractPrice;
 let contractMaxMint;
@@ -314,7 +313,7 @@ async function init() {
     },
   };
   web3Modal = new Web3Modal({
-    network: 'mainnet',
+    network: chainName,
     cacheProvider: false, // optional
     providerOptions, // required
     disableInjectedProvider: false, // optional. For MetaMask / Brave / Opera.
@@ -342,7 +341,7 @@ async function getNFTInfo() {
 }
 
 async function isConnect() {
-  connected = document.querySelector('.connect').innerText;
+  connected = document.querySelector('.connect').textContent;
   // console.log(connected);
   if (connected == 'CONNECT') {
     connect();
@@ -352,25 +351,27 @@ async function isConnect() {
 }
 
 async function connect() {
-  const provider = await web3Modal.connect();
-  web3 = new Web3(provider);
   console.log('Opening a dialog', web3Modal);
-  if (typeof web3 !== 'undefined') {
+  try {
+    const provider = await web3Modal.connect();
+    web3 = new Web3(provider);
     await web3.eth.requestAccounts().then(() => connectWallet());
-  } else {
-    web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
+    provider.on('accountsChanged', (accounts) => {
+      connectWallet();
+    });
+    // Subscribe to chainId change
+    provider.on('chainChanged', (chainId) => {
+      if (chainId != metamaskHexChainID) {
+        alert('請連線至正確的區塊鏈: [' + chainName + '] !!');
+        connectWallet();
+      }
+    });
+  } catch (e) {
+    console.log('Could not get a wallet connection', e);
+    return;
   }
-  provider.on('accountsChanged', (accounts) => {
-    connectWallet();
-  });
-  // Subscribe to chainId change
-  provider.on('chainChanged', (chainId) => {
-    if (chainId != metamaskHexChainID) {
-      alert('請連線至正確的區塊鏈: [' + chainName + '] !!');
-    }
-    connectWallet();
-  });
-  connectWallet();
+
+  await connectWallet();
 }
 
 async function disConnect() {
@@ -497,7 +498,7 @@ async function inReceipt(receipt) {
 }
 
 function eror(error) {
-  alert(error);
+  console.log(error.message);
   // console.log(error);
   document.querySelector('.mint_btn').innerHTML = 'MINT';
   $('.mint_result').removeClass('active');
