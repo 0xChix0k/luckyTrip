@@ -54,13 +54,13 @@ $(document).ready(function () {
 
   if (openseaURL.length > 0) {
     socialMediaSB.append('<a href="' + openseaURL + '" id="os" target="_blank">');
-    socialMediaSB.append('<span><img src="/images/opensea.png" alt="" class="bx bxl-opensea"/></span>');
+    socialMediaSB.append('<span><img src="images/opensea.png" alt="" class="bx bxl-opensea"/></span>');
     socialMediaSB.append('<span>Opensea</span>');
     socialMediaSB.append('</a>');
   }
   if (etherscanURL.length > 0) {
     socialMediaSB.append('<a href="' + etherscanURL + '" id="eth" target="_blank">');
-    socialMediaSB.append('<span><img src="/images/eth.png" alt="" class="bx bxl-etherscan"/></span>');
+    socialMediaSB.append('<span><img src="images/eth.png" alt="" class="bx bxl-etherscan"/></span>');
     socialMediaSB.append('<span>EtherScan</span>');
     socialMediaSB.append('</a>');
   }
