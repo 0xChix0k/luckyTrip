@@ -341,7 +341,7 @@ async function getNFTInfo() {
 }
 
 async function isConnect() {
-  connected = document.querySelector('.connect').textContent;
+  connected = document.querySelector('.connect').innerText;
   // console.log(connected);
   if (connected == 'CONNECT') {
     connect();
@@ -368,6 +368,7 @@ async function connect() {
     });
   } catch (e) {
     console.log('Could not get a wallet connection', e);
+    document.querySelector('.mint_btn').innerHTML = 'MINT';
     return;
   }
 
