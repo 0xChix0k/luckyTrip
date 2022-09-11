@@ -1,4 +1,4 @@
-# ![](/images/lucky3.png)Lucky Trip NFT Project ![](/images/lucky3.png)
+# ![](/images/lucky3.png)Lucky Trip NFT
 
 ## 📜Info
 
