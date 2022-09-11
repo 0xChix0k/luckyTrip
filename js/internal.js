@@ -44,12 +44,26 @@ $(document).ready(function () {
   });
 
   //SocialMedia
+  var openseaURL = 'https://opensea.io/collection/luckytrip';
+  var etherscanURL = 'https://etherscan.io/address/0xcedde3382ff839d8eef7357c16bdf111d77a72f2';
   var twitterURL = 'https://twitter.com/luckytripl';
   var discordURL = 'https://discord.gg/knhdweRUW4';
   var instagramURL = 'https://www.instagram.com/luckytrip.io';
   var socialMediaSB = new StringBuilder();
   var result = document.querySelector('.socialMedia');
 
+  if (openseaURL.length > 0) {
+    socialMediaSB.append('<a href="' + openseaURL + '" id="os" target="_blank">');
+    socialMediaSB.append('<span><img src="/images/opensea.png" alt="" class="bx bxl-opensea"/></span>');
+    socialMediaSB.append('<span>Opensea</span>');
+    socialMediaSB.append('</a>');
+  }
+  if (etherscanURL.length > 0) {
+    socialMediaSB.append('<a href="' + etherscanURL + '" id="eth" target="_blank">');
+    socialMediaSB.append('<span><img src="/images/eth.png" alt="" class="bx bxl-etherscan"/></span>');
+    socialMediaSB.append('<span>EtherScan</span>');
+    socialMediaSB.append('</a>');
+  }
   if (twitterURL.length > 0) {
     socialMediaSB.append('<a href="' + twitterURL + '" id="tweet" target="_blank">');
     socialMediaSB.append('<span><i class="bx bxl-twitter" style="color:#ffffff;font-size:36px"></i></span>');
@@ -68,6 +82,7 @@ $(document).ready(function () {
     socialMediaSB.append('<span>Instagram</span>');
     socialMediaSB.append('</a>');
   }
+
   result.innerHTML = socialMediaSB.toString();
 
   //Roadmap
@@ -209,6 +224,27 @@ $(document).ready(function () {
       }
       changePrice();
     });
+
+    $('#os').hover(
+      function () {
+        $('.bxl-opensea').addClass('bx-tada');
+        $('.bxl-opensea').attr('src', '/images/opensea2.png');
+      },
+      function () {
+        $('.bxl-opensea').removeClass('bx-tada');
+        $('.bxl-opensea').attr('src', '/images/opensea.png');
+      }
+    );
+    $('#eth').hover(
+      function () {
+        $('.bxl-etherscan').addClass('bx-tada');
+        $('.bxl-etherscan').attr('src', '/images/eth2.png');
+      },
+      function () {
+        $('.bxl-etherscan').removeClass('bx-tada');
+        $('.bxl-etherscan').attr('src', '/images/eth.png');
+      }
+    );
     $('#tweet').hover(
       function () {
         $('.bxl-twitter').addClass('bx-tada');

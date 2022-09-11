@@ -1463,7 +1463,8 @@ footer {
     display: none;
   }  
   .about-us .socialMedia a{
-    width: 25%;
+    margin: 10px;
+    width: 33%;
   }  
   .about-img{
     display: none;
