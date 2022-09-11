@@ -228,21 +228,21 @@ $(document).ready(function () {
     $('#os').hover(
       function () {
         $('.bxl-opensea').addClass('bx-tada');
-        $('.bxl-opensea').attr('src', '/images/opensea2.png');
+        $('.bxl-opensea').attr('src', 'images/opensea2.png');
       },
       function () {
         $('.bxl-opensea').removeClass('bx-tada');
-        $('.bxl-opensea').attr('src', '/images/opensea.png');
+        $('.bxl-opensea').attr('src', 'images/opensea.png');
       }
     );
     $('#eth').hover(
       function () {
         $('.bxl-etherscan').addClass('bx-tada');
-        $('.bxl-etherscan').attr('src', '/images/eth2.png');
+        $('.bxl-etherscan').attr('src', 'images/eth2.png');
       },
       function () {
         $('.bxl-etherscan').removeClass('bx-tada');
-        $('.bxl-etherscan').attr('src', '/images/eth.png');
+        $('.bxl-etherscan').attr('src', 'images/eth.png');
       }
     );
     $('#tweet').hover(
