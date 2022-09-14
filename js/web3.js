@@ -507,7 +507,7 @@ function eror(error) {
 
 function urlCache(url) {
   //必須使用gateway讓所有瀏覽器支援
-  return url.toString().replace('ipfs://', 'https://opensea.mypinata.cloud/ipfs/');
+  return url.toString().replace('ipfs://', 'https://gateway.pinata.cloud/ipfs/');
 }
 //白名單資訊
 async function getWhiteList() {
